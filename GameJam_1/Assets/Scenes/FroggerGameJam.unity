@@ -467,8 +467,8 @@ Transform:
   m_GameObject: {fileID: 65532283}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.028240085, y: -0.90195817, z: 61.86}
-  m_LocalScale: {x: 1.49207, y: 0.244967, z: 0.8013933}
+  m_LocalPosition: {x: 0.02824, y: -0.90195817, z: 61.86}
+  m_LocalScale: {x: 0.9154745, y: 0.244967, z: 0.8013933}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1536044223}
@@ -1131,8 +1131,8 @@ Transform:
   m_GameObject: {fileID: 192971434}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.028240085, y: -0.90195817, z: 18.428661}
-  m_LocalScale: {x: 1.49207, y: 0.244967, z: 0.8013933}
+  m_LocalPosition: {x: 0.02824, y: -0.90195817, z: 18.428661}
+  m_LocalScale: {x: 0.9154745, y: 0.244967, z: 0.8013933}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1560604872}
@@ -1674,8 +1674,8 @@ Transform:
   m_GameObject: {fileID: 345700406}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.01, z: 38.8725}
-  m_LocalScale: {x: 3.4169579, y: 1, z: 1.0183294}
+  m_LocalPosition: {x: 0.010913, y: 0.01, z: 38.8725}
+  m_LocalScale: {x: 2.1721928, y: 1, z: 1.0183294}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1999053161}
@@ -2500,8 +2500,8 @@ Transform:
   m_GameObject: {fileID: 1134781998}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.01, z: 0.589}
-  m_LocalScale: {x: 3.4169579, y: 1, z: 0.9860474}
+  m_LocalPosition: {x: 0.010913, y: 0.01, z: 0.589}
+  m_LocalScale: {x: 2.1721928, y: 1, z: 0.9860474}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1999053161}
@@ -2613,8 +2613,8 @@ Transform:
   m_GameObject: {fileID: 1236702145}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.004311562, y: -1.4085001, z: 25.6925}
-  m_LocalScale: {x: 0.7993022, y: 0.43114635, z: 0.43114635}
+  m_LocalPosition: {x: 0.0082673, y: -1.4085001, z: 25.6925}
+  m_LocalScale: {x: 0.4904199, y: 0.43114635, z: 0.43114635}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1999053161}
@@ -4933,7 +4933,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1567951272}
+  m_Mesh: {fileID: 16950298}
 --- !u!33 &1536044225
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -5882,8 +5882,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1918909234}
   - component: {fileID: 1918909233}
+  - component: {fileID: 1918909236}
   - component: {fileID: 1918909232}
   - component: {fileID: 1918909231}
+  - component: {fileID: 1918909235}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6003,12 +6005,56 @@ Transform:
   m_GameObject: {fileID: 1918909230}
   serializedVersion: 2
   m_LocalRotation: {x: 0.33690643, y: -0, z: -0, w: 0.94153816}
-  m_LocalPosition: {x: 0, y: 29.5, z: -25.539528}
+  m_LocalPosition: {x: 0, y: 23.1, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 39.377, y: 0, z: 0}
+--- !u!114 &1918909235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918909230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 203e7a434fa43824ab70f419bb96a6f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerCameraController
+  forwardCameraSpeed: 50
+  sidewaysCameraSpeed: 20
+--- !u!114 &1918909236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918909230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1999053160
 GameObject:
   m_ObjectHideFlags: 0
