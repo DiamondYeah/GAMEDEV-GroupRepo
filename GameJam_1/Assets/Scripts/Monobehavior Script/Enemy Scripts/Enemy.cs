@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -5,10 +6,13 @@ public class Enemy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField]
     public EnemyStats enemyStats;
+    public float enemyHealth;
+
     Rigidbody rb;
     void Start()
     {
-        enemyStats.health = 100;
+        
+        enemyHealth =  enemyStats.health;
         Debug.Log(enemyStats.health);
         rb = GetComponent<Rigidbody>();
     }
@@ -21,12 +25,20 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        enemyStats.health -= damage;
-        Debug.Log(enemyStats.health);
-        if (enemyStats.health < 0)
+        enemyHealth -= damage;
+        
+        if (enemyHealth <= 0)
         {
-            Destroy(gameObject);
+            rb.detectCollisions = false;
+            StartCoroutine(DestroyFrog());
+
 
         }
+    }
+
+    IEnumerator DestroyFrog()
+    {
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
     }
 }
