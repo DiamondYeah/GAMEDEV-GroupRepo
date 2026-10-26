@@ -24,8 +24,11 @@ public class TowerController : MonoBehaviour
     void Start()
     {
         // Adjust max and current health of slider based on health in scriptable object
-        healthBar.maxValue = statsHolder.health;
-        healthBar.value = statsHolder.health;
+        if (healthBar != null)
+        {
+            healthBar.maxValue = statsHolder.health;
+            healthBar.value = statsHolder.health;
+        }
     }
 
     // Method makes tower take damage when called based on parameter passed and adjust health bar aswell

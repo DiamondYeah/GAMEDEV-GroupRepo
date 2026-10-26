@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Purchasing;
 using UnityEngine.UI;
 
 [Serializable]
@@ -62,6 +63,15 @@ public class TowerPlacingController : MonoBehaviour
     private LayerMask validPlacementLayers;
 
     [Space(10)]
+    [Header("Truck Settings")]
+    [Tooltip("Spawn points ordered LEFT to RIGHT. Truck spawns at the first free one.")]
+    [SerializeField]
+    private Transform[] truckSpawnPoints;
+    [Tooltip("A spawn point is free once the truck spawned there is farther than this (or destroyed).")]
+    [SerializeField]
+    private float truckSpawnClearDistance = 5f;
+
+    [Space(10)]
     [Header("Tower UI Settings")]
     [SerializeField] 
     private TowerTypeColor[] typeColors;
@@ -78,11 +88,12 @@ public class TowerPlacingController : MonoBehaviour
 
     private GameObject ghostTower;
     private MeshRenderer ghostTowerRender;
-
+    private GameObject[] spawnedTrucks;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        foreach(PlaceableTower tower in towerList)
+        spawnedTrucks = new GameObject[truckSpawnPoints.Length];
+        foreach (PlaceableTower tower in towerList)
         {
             tower.towerButton.onClick.AddListener(() => SelectTower(tower.towerObject));
             DisplayTowerStatsToButton(tower);
@@ -160,6 +171,7 @@ public class TowerPlacingController : MonoBehaviour
     // Method disables tower placing by setting tower buttons to be non actuve
     private void DisablePlacing()
     {
+        selectedTower = null;
         foreach (PlaceableTower button in towerList)
         {
             button.towerButton.gameObject.SetActive(false);
@@ -182,6 +194,7 @@ public class TowerPlacingController : MonoBehaviour
     private void PlaceTowerInScene()
     {
         // Read the mouse 2D Position, and add use it to create a Camera ray that points to that position
+
         Vector2 mouse2DPOS = Mouse.current.position.ReadValue();
         cameraRay = cameraTower.ScreenPointToRay(new Vector3(mouse2DPOS.x, mouse2DPOS.y, 0f));
 
@@ -194,6 +207,7 @@ public class TowerPlacingController : MonoBehaviour
 
             if (ghostTower != null)
             {
+               
                 ghostTower.SetActive(true);
                 ghostTower.transform.position = hitPos;
             }
@@ -218,8 +232,12 @@ public class TowerPlacingController : MonoBehaviour
             bool isMouserNotOverUI = !EventSystem.current.IsPointerOverGameObject();
             if (selectedTower != null && IsPlacementValid(hitPos, hit) && wasLeftMouseClicked && isMouserNotOverUI)
             {
-                Instantiate(selectedTower, hitPos, Quaternion.Euler(0f, 180f, 0f));
-                CurrencyController.ControllerInstance.SpendCurrency(selectedTowerPrice); // Update amount to spend
+           
+                
+                    Instantiate(selectedTower, hitPos, Quaternion.Euler(0f, 180f, 0f));
+                    CurrencyController.ControllerInstance.SpendCurrency(selectedTowerPrice); // Update amount to spend
+                
+
             }
         }
     }
@@ -235,13 +253,22 @@ public class TowerPlacingController : MonoBehaviour
         {
             Destroy(ghostTower);
         }
+        if (tower.CompareTag("Truck"))
+        {
+            selectedTower = null;
+            TrySpawnTruck(tower);
+            return;
+        }
+        else
+        {
+            ghostTower = Instantiate(tower, transform.position, Quaternion.Euler(0f, 180f, 0f));
+            ghostTower.layer = LayerMask.NameToLayer("Ghost");
 
-        ghostTower = Instantiate(tower, transform.position, Quaternion.Euler(0f, 180f, 0f));
-        ghostTower.layer = LayerMask.NameToLayer("Ghost");
+            ghostTowerRender = ghostTower.GetComponent<MeshRenderer>();
+            ghostTowerRender.material.color = new Color(ghostTowerRender.material.color.r, ghostTowerRender.material.color.g,
+                                                        ghostTowerRender.material.color.b, selectTransparencyValue);
+        }
 
-        ghostTowerRender = ghostTower.GetComponent<MeshRenderer>();
-        ghostTowerRender.material.color = new Color(ghostTowerRender.material.color.r, ghostTowerRender.material.color.g, 
-                                                    ghostTowerRender.material.color.b, selectTransparencyValue);
     }
 
 
@@ -272,6 +299,38 @@ public class TowerPlacingController : MonoBehaviour
         }
 
         return isPlacementValid;
+    }
+
+    private void TrySpawnTruck(GameObject truckPrefab)
+    {
+        int price = truckPrefab.GetComponent<TowerController>().towerStatsHolder.towerCost;
+
+        for (int i = 0; i < truckSpawnPoints.Length; i++)
+        {
+            if (!IsSpawnPointFree(i))
+            {
+                continue;
+            }
+
+            Transform spawnPoint = truckSpawnPoints[i];
+            spawnedTrucks[i] = Instantiate(truckPrefab, spawnPoint.position, spawnPoint.rotation);
+            CurrencyController.ControllerInstance.SpendCurrency(price);
+            return;
+        }
+
+        Debug.Log("No free truck spawn point available");
+    }
+    private bool IsSpawnPointFree(int index)
+    {
+        GameObject lastTruck = spawnedTrucks[index];
+
+        if (lastTruck == null)
+        {
+            return true;
+        }
+
+        float distance = Vector3.Distance(lastTruck.transform.position, truckSpawnPoints[index].position);
+        return distance > truckSpawnClearDistance;
     }
 
 

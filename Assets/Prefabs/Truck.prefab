@@ -732,7 +732,7 @@ MonoBehaviour:
   parent: {fileID: 6893856124326900376}
   clip: {fileID: 8300000, guid: 810c6de5dd2e28944b5180176cd0c878, type: 3}
   source: {fileID: 4346351961703722666}
-  damage: 100000
+  damage: 1000000
 --- !u!82 &4346351961703722666
 AudioSource:
   m_ObjectHideFlags: 0
@@ -839,6 +839,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8065475096342445974}
+  - component: {fileID: 9024501244557694800}
   m_Layer: 14
   m_Name: Truck
   m_TagString: Truck
@@ -855,7 +856,7 @@ Transform:
   m_GameObject: {fileID: 6893856124326900376}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.57, y: 7.9979696, z: -149.3}
+  m_LocalPosition: {x: 36.8, y: 7.95, z: -131}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -864,6 +865,21 @@ Transform:
   - {fileID: 7258080312388712986}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9024501244557694800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6893856124326900376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eeb1312337910449bdc9e35a55e908d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerController
+  towerStatsHolder: {fileID: 11400000, guid: 872ee083510cfe64187351802b706071, type: 2}
+  healthBar: {fileID: 0}
+  statsHolder: {fileID: 0}
 --- !u!1 &7116433955246524509
 GameObject:
   m_ObjectHideFlags: 0
