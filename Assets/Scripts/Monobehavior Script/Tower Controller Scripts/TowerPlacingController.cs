@@ -261,7 +261,12 @@ public class TowerPlacingController : MonoBehaviour
         }
         else
         {
+            
             ghostTower = Instantiate(tower, transform.position, Quaternion.Euler(0f, 180f, 0f));
+            foreach (MonoBehaviour script in ghostTower.GetComponentsInChildren<MonoBehaviour>(true))
+            {
+                script.enabled = false;
+            }
             ghostTower.layer = LayerMask.NameToLayer("Ghost");
 
             ghostTowerRender = ghostTower.GetComponent<MeshRenderer>();

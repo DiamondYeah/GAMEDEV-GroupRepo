@@ -33,6 +33,8 @@ public class Kick : MonoBehaviour
     private bool isOnPlayerView = false;
 
     private GameObject frog;
+    [SerializeField]
+    private float recoverDistance = 2f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -122,8 +124,15 @@ public class Kick : MonoBehaviour
         // Instakill frog if not on navmesh
         if (!agent.isOnNavMesh)
         {
-            Debug.Log("not navmesh");
-            frogControllerScript.TakeDamage(9999);
+            if (NavMesh.SamplePosition(frog.transform.position, out NavMeshHit navHit, recoverDistance, NavMesh.AllAreas))
+            {
+                agent.Warp(navHit.position);
+            }
+            else
+            {
+                Debug.Log("not navmesh");
+                frogControllerScript.TakeDamage(9999);
+            }
         }
 
     }
