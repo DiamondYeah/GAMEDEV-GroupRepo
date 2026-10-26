@@ -30,12 +30,14 @@ public class PerspectiveController : MonoBehaviour
     private void OnEnable()
     {
         switchPerspectiveAction.action.Enable();
+        EventController.LostAllHealth += (string message) => { towerCamera.gameObject.SetActive(true); playerCamera.gameObject.SetActive(false); };
     }
 
     // Disable events when disabled or destroyed as common pracitce for events
     private void OnDisable()
     {
         switchPerspectiveAction.action.Disable();
+        EventController.LostAllHealth -= (string message) => { towerCamera.gameObject.SetActive(true); playerCamera.gameObject.SetActive(false); };
     }
 
     // Update is called once per frame

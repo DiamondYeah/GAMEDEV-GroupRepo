@@ -7,11 +7,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private PlayerStats playerStats;
 
-    // Store components
-    private Rigidbody rb;
-
-    // Store boolean for enabled or disabled movement
-    private bool isMovementEnabled;
+    [Header("Player Scripts")]
+    [SerializeField]
+    private MonoBehaviour[] playerScripts;
 
     // Copy of player stats for adjusting values at runtime
     [HideInInspector]
@@ -32,17 +30,16 @@ public class PlayerController : MonoBehaviour
     {
         movementScript = GetComponent<PlayerMovementController>();
 
-        // Disable movement script at start
-        isMovementEnabled = false;
-        movementScript.enabled = isMovementEnabled;
+        // Disable scripts at start
+        DisableActions();
     }
 
     // Add events to be observed when active
     private void OnEnable()
     {
 
-        EventController.SwitchPlayerMode += ToggleMovement;
-        EventController.SwitchTowerMode += ToggleMovement;
+        EventController.SwitchPlayerMode += EnableActions;
+        EventController.SwitchTowerMode += DisableActions;
         EventController.DamagePlayer += DamagePlayer;
 
     }
@@ -50,27 +47,40 @@ public class PlayerController : MonoBehaviour
     // Disable events when disabled or destroyed as common pracitce for events
     private void OnDisable()
     {
-        EventController.SwitchPlayerMode -= ToggleMovement;
-        EventController.SwitchTowerMode -= ToggleMovement;
+        EventController.SwitchPlayerMode -= EnableActions;
+        EventController.SwitchTowerMode -= DisableActions;
         EventController.DamagePlayer += DamagePlayer;
     }
 
-    // Method enables and disables movement script when called
-    private void ToggleMovement()
+    // Method enables player script
+    public void EnableActions()
     {
-        isMovementEnabled = !isMovementEnabled;
-        movementScript.enabled = isMovementEnabled;
+        foreach(MonoBehaviour script in playerScripts)
+        {
+            script.enabled = true;
+        }
+    }
+
+    // Method disables player script
+    public void DisableActions()
+    {
+        foreach (MonoBehaviour script in playerScripts)
+        {
+            script.enabled = false;
+        }
     }
 
     // Method reduces health of player depending on damage passed
-    private void DamagePlayer(float damage)
+    public void DamagePlayer(float damage)
     {
         runtimeStats.health = Mathf.Max(0f, runtimeStats.health - damage); // Avoid health going below 0
         EventController.RaiseUpdateHealth(runtimeStats.health, playerStats.health);
 
         if (runtimeStats.health <= 0f)
         {
-            EventController.RaiseLostAllHealth();
+            EventController.RaiseLostAllHealth("Player lost all health!");
+            EventController.RaiseSwitchTowerMode();
+            Destroy(gameObject);
         }
     }
 

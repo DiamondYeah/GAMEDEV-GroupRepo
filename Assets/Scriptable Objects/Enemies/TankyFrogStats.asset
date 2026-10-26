@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19f610eaa84281c4fa8cec01743a81f6, type: 3}
-  m_Name: EnemyStats
+  m_Name: TankyFrogStats
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
-  health: 100
+  health: 250
   isVulnerable: 0
-  speed: 8
+  speed: 4
   jumpDelay: 1
   nextPathCheck: 0.5
   nextFlyCheck: 0.5
   arriveDistance: 1.5
   flyConsumeTag: FlyEatArea
   consumeDistance: 0
-  coinsWhenKilled: 20
+  coinsWhenKilled: 50

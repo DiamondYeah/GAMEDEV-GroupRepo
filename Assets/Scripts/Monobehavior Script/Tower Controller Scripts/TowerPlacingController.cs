@@ -17,7 +17,6 @@ public class PlaceableTower
 {
     public Button towerButton;
     public GameObject towerObject;
-    public GameObject towerImage;
 
     [HideInInspector]
     public Color towerColorType; // Will be set after DisplayTowerStatsToButton call for reference of previous Color background

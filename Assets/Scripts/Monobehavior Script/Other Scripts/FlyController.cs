@@ -18,6 +18,8 @@ public class FlyController : MonoBehaviour
     // Method destroys fly when consumed
     public void DestroySelf()
     {
+
+        EventController.RaiseFlyWasEaten(); // Raise even that fly was eaten
         Destroy(gameObject);
     }
 }

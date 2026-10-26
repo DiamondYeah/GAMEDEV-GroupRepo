@@ -989,8 +989,8 @@ GameObject:
   - component: {fileID: 918850939877556899}
   - component: {fileID: 8012820481748825746}
   - component: {fileID: 3495764712397014357}
-  - component: {fileID: 8758736541838019007}
   - component: {fileID: 778725258558821854}
+  - component: {fileID: 8758736541838019007}
   - component: {fileID: 4456460250129711113}
   - component: {fileID: 766277742651626019}
   m_Layer: 0
@@ -34971,7 +34971,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 654
+  m_VersionIndex: 657
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -35082,21 +35082,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!114 &8758736541838019007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9186994050232771538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eeb1312337910449bdc9e35a55e908d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TowerController
-  towerStatsHolder: {fileID: 11400000, guid: 1880f0635bf882e4396561d98bdee799, type: 2}
-  healthBar: {fileID: 3774831963608856346}
-  statsHolder: {fileID: 0}
 --- !u!208 &778725258558821854
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -35113,6 +35098,21 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &8758736541838019007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9186994050232771538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eeb1312337910449bdc9e35a55e908d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerController
+  towerStatsHolder: {fileID: 11400000, guid: 9c79a2bbc98a8a64684abf46b5e991b2, type: 2}
+  healthBar: {fileID: 3774831963608856346}
+  statsHolder: {fileID: 0}
 --- !u!114 &4456460250129711113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35125,7 +35125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04dbd44f5077f142bdf51851283815e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlameTower
-  burnTime: 3
+  burnTime: 11
 --- !u!65 &766277742651626019
 BoxCollider:
   m_ObjectHideFlags: 0

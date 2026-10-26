@@ -44,7 +44,9 @@ public class FrogSpawner : MonoBehaviour
 
 
     private float currentTime = 0f;
-    private int currentWave = 1;
+
+    [HideInInspector]
+    public static int currentWave = 1;
 
     // Stores the frog spawn collider to get bounds for randomized spawning
     private Collider frogSpawnCollider;
@@ -58,6 +60,8 @@ public class FrogSpawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        currentWave = 1;
+
         frogSpawnCollider = frogSpawnZone.GetComponent<Collider>();
     }
 

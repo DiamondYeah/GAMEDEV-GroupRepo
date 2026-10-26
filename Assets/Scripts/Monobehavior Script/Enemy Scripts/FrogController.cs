@@ -22,7 +22,10 @@ public class FrogController : MonoBehaviour
     private FrogMovementController movementController;
 
     // Store boolean for enabled or disabled movement
-    private bool isMovementEnabled ;
+    private bool isMovementEnabled;
+
+    [HideInInspector]
+    public bool stopImmediateKill { get; set; }
 
     // Awake is called when loading an instance of a script component. Mainly used for initializing and instantiating objects
     void Awake()
@@ -30,6 +33,7 @@ public class FrogController : MonoBehaviour
         stats = Instantiate(enemyStats); // Create a copy of the scriptable object to allow to be adjusted
 
         isMovementEnabled = true; // Set movement enabled to true
+        stopImmediateKill = false; // Allow frog to get killed when health is 0
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -69,7 +73,7 @@ public class FrogController : MonoBehaviour
         healthBar.value = stats.health;
 
         // If health is 0, reset navmesh path before destroying frog
-        if (stats.health <= 0f)
+        if (stats.health <= 0f && !stopImmediateKill)
         {
             DestroyFrog();
         }

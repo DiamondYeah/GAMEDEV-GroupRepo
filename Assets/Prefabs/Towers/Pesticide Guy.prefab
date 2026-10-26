@@ -34133,7 +34133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d431aa04cd55b4e8e010aa66f6431d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  gizmoRange: 0
+  gizmoRange: 12
 --- !u!208 &8935634093183080629
 NavMeshObstacle:
   m_ObjectHideFlags: 0

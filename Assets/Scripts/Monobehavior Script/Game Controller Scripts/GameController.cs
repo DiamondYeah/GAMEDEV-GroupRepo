@@ -12,6 +12,8 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private Button startWavesButton;
 
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,13 +23,13 @@ public class GameController : MonoBehaviour
     // Add events to be observed when active
     private void OnEnable()
     {
-
+        EventController.FlyWasEaten += CheckForFliesLeft;
     }
 
     // Disable events when disabled or destroyed as common pracitce for events
     private void OnDisable()
     {
-
+        EventController.FlyWasEaten -= CheckForFliesLeft;
     }
 
     // Update is called once per frame
@@ -45,16 +47,17 @@ public class GameController : MonoBehaviour
             startWavesButton.gameObject.SetActive(false);
             EventController.RaiseStartWaves();
         }
-
-
     }
 
-    // Method controls FrogSpawner script to stop the frog waves
-    private void StopWaves()
+    // Checks for flies in scene and calls game over if no more flies are left
+    private void CheckForFliesLeft()
     {
-        if (spawner != null)
+        GameObject[] flies = GameObject.FindGameObjectsWithTag("Fly");
+
+        if(flies.Length - 1 <= 0)
         {
-            spawner.StopFrogSpawning();
+            EventController.RaiseAllFliesEaten("All flies were eaten!");
         }
+
     }
 }

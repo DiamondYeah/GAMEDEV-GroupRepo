@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using static UnityEngine.GraphicsBuffer;
 public class Kick : MonoBehaviour
 {
     [Header("Kick Detection Settings")]
@@ -32,7 +33,10 @@ public class Kick : MonoBehaviour
     private bool canKick = true;
     private bool isOnPlayerView = false;
 
+<<<<<<< Updated upstream
     private GameObject frog;
+=======
+>>>>>>> Stashed changes
     [SerializeField]
     private float recoverDistance = 2f;
 
@@ -45,36 +49,39 @@ public class Kick : MonoBehaviour
     // Add events to be observed when active
     private void OnEnable()
     {
-        EventController.SwitchPlayerMode += () => isOnPlayerView = true;
-        EventController.SwitchTowerMode += () => isOnPlayerView = false;
+        canKick = true;
     }
 
     // Disable events when disabled or destroyed as common pracitce for events
     private void OnDisable()
     {
-        EventController.SwitchPlayerMode -= () => isOnPlayerView = true;
-        EventController.SwitchTowerMode -= () => isOnPlayerView = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Skip if not on player view
-        if (!isOnPlayerView)
+        Camera cam = PerspectiveController.ActiveCamera;
+        if (cam == null)
         {
             return;
         }
-
-        Camera cam = PerspectiveController.ActiveCamera;
 
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && canKick)
         {
             StartCoroutine(StartKickCoolDown());
             source.PlayOneShot(clip);
+
             if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hitinfo, raySize, kickHitMask))
             {
-                frog = hitinfo.transform.gameObject;
-                StartCoroutine(PerformKick());    
+                GameObject frog = hitinfo.transform.gameObject;
+                FrogController frogController = frog.GetComponent<FrogController>();
+
+                // Run the coroutine on frog so it survives Kick being disabled/deactivated
+                if (frogController != null)
+                {
+                    
+                    frogController.StartCoroutine(PerformKick(frog, transform.forward));
+                }
             }
 
         }
@@ -93,7 +100,8 @@ public class Kick : MonoBehaviour
     }
 
     // Coroutine performs kick by disabling agent and adding force to frog. Agent is enabled again once frog stops moving from the force
-    private IEnumerator PerformKick() {
+    private IEnumerator PerformKick(GameObject frog, Vector3 direction) {
+
         NavMeshAgent agent = frog.GetComponent<NavMeshAgent>();
         FrogController frogControllerScript = frog.GetComponent<FrogController>();
         FrogMovementController frogMoveScript = frog.GetComponent<FrogMovementController>();
@@ -106,17 +114,40 @@ public class Kick : MonoBehaviour
         rb.AddForce(transform.forward * kickForce, ForceMode.Impulse);
         frogControllerScript.TakeDamage(kickDmg);
 
+        if (frog == null || rb == null)
+        {
+            yield break;
+        }
+
         yield return new WaitForSeconds(0.2f); // Add small delay to accumelate linear velocity for checking later
+
+        if (frog == null || rb == null)
+        {
+            yield break;
+        }
 
         // Keep stunned while velocity is above stunnedVelocityBoundary (Frog is still moving alot) or not until force wakeup
         float duration = durationUntilForcedWake;
-        while (rb.linearVelocity.sqrMagnitude > stunnedVelocityBoundary && duration > 0f)
+        while (rb != null && rb.linearVelocity.sqrMagnitude > stunnedVelocityBoundary && duration > 0f)
         {
             duration -= Time.deltaTime;
             yield return null;
         }
 
+
+        // Make sure frog still exists
+        if (frog == null || rb == null)
+        {
+            yield break;
+        }
+
         yield return new WaitForSeconds(stunDuration); // Delay agent based on stun duration
+
+        // Make sure frog still exists
+        if (frog == null || rb == null)
+        {
+            yield break;
+        }
 
         // Call UnstunFrog to enable agent and kinematic, and make frog unstunned
         frogControllerScript.UnstunFrog();

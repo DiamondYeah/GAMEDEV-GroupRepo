@@ -7,6 +7,8 @@ public static class EventController
     public static event Action ResetGame;
     public static event Action StartWaves;
     public static event Action<int> NextWave;
+    public static event Action<string> AllFliesEaten;
+    public static event Action FlyWasEaten;
 
     // Curreny Events
     public static event Action UpdatedAmphicoinsHeld;
@@ -19,7 +21,7 @@ public static class EventController
     public static event Action<float, float> UpdateHealth;
     public static event Action<float, float> UpdateStamina;
     public static event Action<float> DamagePlayer;
-    public static event Action LostAllHealth;
+    public static event Action<string> LostAllHealth;
 
 
 
@@ -27,6 +29,8 @@ public static class EventController
     public static void RaiseResetGame() => ResetGame?.Invoke();
     public static void RaiseStartWaves() => StartWaves?.Invoke();
     public static void RaiseNextWave(int wave) => NextWave?.Invoke(wave);
+    public static void RaiseAllFliesEaten(string message) => AllFliesEaten?.Invoke(message);
+    public static void RaiseFlyWasEaten() => FlyWasEaten?.Invoke();
 
     // Curreny Events Functions
     public static void RaiseUpdatedAmphicoinsHeld() => UpdatedAmphicoinsHeld?.Invoke();
@@ -38,6 +42,6 @@ public static class EventController
     // Player Events Functions
     public static void RaiseUpdateHealth(float health, float maxHealth) => UpdateHealth.Invoke(health, maxHealth);
     public static void RaiseUpdateStamina(float stamina, float maxStamina) => UpdateStamina?.Invoke(stamina, maxStamina);
-    public static void RaiseLostAllHealth() => LostAllHealth?.Invoke();
+    public static void RaiseLostAllHealth(string message) => LostAllHealth?.Invoke(message);
     public static void RaiseDamagePlayer(float damage) => DamagePlayer?.Invoke(damage);
 }

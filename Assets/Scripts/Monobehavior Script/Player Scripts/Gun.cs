@@ -12,24 +12,19 @@ public class Gun : MonoBehaviour
     private MeshRenderer GunMesh;
     public UnityEvent OnGunShoot;
 
-    private float CurrentCooldown;
-    void Start()
-    {
-
-        CurrentCooldown = FireCooldown;
-    }
+    private float CurrentCooldown = 0f;
 
     // Update is called once per frame
     void Update()
     {
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
-            if (CurrentCooldown <= 0f)
+            if (Time.time >= CurrentCooldown)
             {
                 source.PlayOneShot(clip);
                 OnGunShoot?.Invoke();
                 StartCoroutine(ShowGun());
-                CurrentCooldown = FireCooldown;
+                CurrentCooldown = Time.time + FireCooldown;
             }
         }
     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using static FrogWave;
 
 public class FrogMovementController : MonoBehaviour
 {
@@ -13,14 +14,16 @@ public class FrogMovementController : MonoBehaviour
     private float repathCheck = 0f;
     private bool isJumping;
 
-    private Transform[] waypoints;
-    private int destinationCount = 0;
-
     private bool isNewWaypoint = true;
 
     [HideInInspector]
     public bool isStunned { get; set; }
+    [HideInInspector]
+    public int destinationCount = 0;
+    [HideInInspector]
+    public Transform[] waypoints;
 
+    private float recoverDistance = 2f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -38,7 +41,10 @@ public class FrogMovementController : MonoBehaviour
         agent.autoTraverseOffMeshLink = false;
 
         // Set waypoints
-        waypoints = controller.waypointsUntilFly;
+        if (waypoints == null || waypoints.Length == 0)
+        {
+            waypoints = controller.waypointsUntilFly;
+        }
 
         // Set stun condition to false
         isStunned = false;
@@ -47,6 +53,7 @@ public class FrogMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (isJumping || isStunned)
         {
             return;
@@ -55,7 +62,21 @@ public class FrogMovementController : MonoBehaviour
         {
             return;
         }
-          
+
+        // Instakill frog if not on navmesh
+        if (!agent.isOnNavMesh)
+        {
+            if (NavMesh.SamplePosition(transform.position, out NavMeshHit navHit, recoverDistance, NavMesh.AllAreas))
+            {
+                agent.Warp(navHit.position);
+            }
+            else
+            {
+                Debug.Log("not navmesh");
+                controller.TakeDamage(9999);
+            }
+        }
+
         if (agent.isOnOffMeshLink)
         {
             StartCoroutine(JumpAcrossLog());

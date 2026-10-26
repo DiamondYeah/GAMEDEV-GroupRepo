@@ -17,7 +17,7 @@ MonoBehaviour:
   validPlacementType:
     serializedVersion: 2
     m_Bits: 128
-  towerCost: 40
+  towerCost: 100
   canBeDamaged: 1
   health: 50
   canDealDamage: 1
@@ -25,5 +25,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   damage: 25
-  range: 12
-  attackDelay: 1.5
+  range: 15
+  attackDelay: 2
