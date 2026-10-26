@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46ef549a19163de488b87faf9c2349dd, type: 3}
+  m_Name: PlayerStats
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  health: 100
+  isVulnerable: 0
+  amphicoinsHeld: 100
+  baseSpeedMultipler: 1
+  maxVelocity: 10
+  sprintSpeedMultiplier: 10
+  sprintSpeedStamina: 100
+  sprintStaminaDrain: 20
+  sprintStaminaGain: 14
+  jumpHeight: 10
+  groundDetectionDistance: 5
+  movementSpeedMultiplier: 10
+  currentSpeed: 0

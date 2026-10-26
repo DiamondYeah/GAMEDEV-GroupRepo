@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: 460ea6d5194a28a4384791b448d16a0d
+AssetOrigin:
+  serializedVersion: 1
+  productId: 359260
+  packageName: Low poly Grenade Launchers
+  packageVersion: 1.0
+  assetPath: Assets/Low poly Grenade launcher/Materials/ImphenziaPixPal_URP.shadergraph
+  uploadId: 855962
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
+  useAsTemplate: 0
+  exposeTemplateAsShader: 0
+  indexedData: {instanceID: 0}
+  template:
+    name: 
+    category: 
+    description: 
+    icon: {instanceID: 0}
+    thumbnail: {instanceID: 0}
+    order: 0
