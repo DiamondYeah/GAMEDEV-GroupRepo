@@ -7,6 +7,7 @@ public class SuckBullet : MonoBehaviour
     [SerializeField] Transform playerCamera;
     [SerializeField] Transform gunMuzzle;
     [SerializeField] GameObject bullet;
+    [SerializeField] float bulletSpeed;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,7 +34,7 @@ public class SuckBullet : MonoBehaviour
         GameObject newBullet = Instantiate(bullet, gunMuzzle.position, gunMuzzle.rotation);
         Vector3 dir = (target - gunMuzzle.position).normalized;
         Rigidbody rb = newBullet.GetComponent<Rigidbody>();
-        rb.AddForce(dir * 10f, ForceMode.Impulse);
+        rb.AddForce(dir * 50f, ForceMode.Impulse);
         
     }
 }
