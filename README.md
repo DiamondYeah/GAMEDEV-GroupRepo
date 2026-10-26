@@ -9,9 +9,15 @@ FROGS HATE YOU! takes the classic retro arcade game of Frogger and flips the rol
 
 ## Controls
 ### Tower View  
+**Esc** - Pause Menu  
 **F** - Switch Perspective  
 **Left Mouse** - Select and place tower  
+**W** - Move Forward  
+**A** - Move Left  
+**S** - Move Back  
+**D** - Move Right 
 ### Player View  
+**Esc** - Pause Menu
 **F** - Switch Perspective  
 **W** - Move Forward  
 **A** - Move Left  
